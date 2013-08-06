@@ -1,0 +1,6 @@
+.ui-header .ui-title {
+  overflow: visible !important;
+  white-space: normal !important;
+}
+
+.bubbletext { font-size: 10px; font-family: Arial}

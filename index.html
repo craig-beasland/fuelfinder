@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>FuelFinder</title>
+        <link rel="stylesheet" href="css/jquery.mobile-1.3.1.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="css/fuelfinder.css" type="text/css" media="all" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="js/functions.js"></script>
+        <script src="//maps.google.com/maps/api/js?sensor=true&region=AU"></script>
+        <script src="js/map.js"></script>
+        <script type="text/javascript">
+            $(document).bind("mobileinit", function() {
+                $.event.special.tap.tapholdThreshold = 650,
+                        $.event.special.swipe.durationThreshold = 999;
+            });
+        </script>
+        <script src="//code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+        <script src="js/jeoquery.js"></script>
+    </head>
+    <body>
+        <div id="FuelFinder" data-role="page">
+            <header data-role="header">
+                <h3>Fuel Finder</h3>
+            </header>
+            <div id="content" data-role="content">
+                <div id="suburb">Finding your location.</div>
+                <div id="tabs">
+                    <a href='#map_canvas' onClick='ShowMap();'>Map</a>&nbsp;&nbsp;<a href='#tabs-suburb' onClick='ShowList();'>List</a>&nbsp;&nbsp;<a id='directionstab' href='#' onClick='ShowDirections();'>Directions</a>&nbsp;&nbsp;<a id='searchtab' href='#' onClick='ShowSearch();'>Search</a>
+                </div>
+                <div id="tabs-suburb"></div>
+                <div id="map_canvas"></div>
+                <div id="map_directions"></div>
+                <div id="manual_search">
+                    <table>
+                        <tr><td>Location</td><td><select id="search_suburb" name="search_suburb">
+<option value="25">Metro : North of River
+<option value="26">Metro : South of River
+<option value="27">Metro : East/Hills
+<option value="15">Albany
+<option value="28">Augusta / Margaret River
+<option value="30">Bridgetown / Greenbushes
+<option value="1">Boulder
+<option value="2">Broome
+<option value="16">Bunbury
+<option value="3">Busselton (Townsite)
+<option value="29">Busselton (Shire)
+<option value="19">Capel
+<option value="4">Carnarvon
+<option value="33">Cataby
+<option value="5">Collie
+<option value="34">Coolgardie
+<option value="35">Cunderdin
+<option value="31">Donnybrook / Balingup
+<option value="36">Dalwallinu
+<option value="6">Dampier
+<option value="20">Dardanup
+<option value="37">Denmark
+<option value="38">Derby
+<option value="39">Dongara
+<option value="7">Esperance
+<option value="40">Exmouth
+<option value="41">Fitzroy Crossing
+<option value="17">Geraldton
+<option value="21">Greenough
+<option value="22">Harvey
+<option value="42">Jurien
+<option value="8">Kalgoorlie
+<option value="43">Kambalda
+<option value="9">Karratha
+<option value="44">Kellerberrin
+<option value="45">Kojonup
+<option value="10">Kununurra
+<option value="18">Mandurah
+<option value="32">Manjimup
+<option value="46">Meekatharra
+<option value="47">Moora
+<option value="48">Mt Barker
+<option value="23">Murray
+<option value="11">Narrogin
+<option value="49">Newman
+<option value="50">Norseman
+<option value="12">Northam
+<option value="13">Port Hedland
+<option value="51">Ravensthorpe
+<option value="14">South Hedland
+<option value="53">Tammin
+<option value="24">Waroona
+<option value="54">Williams
+<option value="55">Wubin
+<option value="56">York
+<option value="26">=====================
+<option value="s_ALBANY">ALBANY</option>
+<option value="s_ALEXANDER HEIGHTS">ALEXANDER HEIGHTS</option>
+<option value="s_ALFRED COVE">ALFRED COVE</option>
+<option value="s_APPLECROSS">APPLECROSS</option>
+<option value="s_ARMADALE">ARMADALE</option>
+<option value="s_ASCOT">ASCOT</option>
+<option value="s_ASHBY">ASHBY</option>
+<option value="s_ATTADALE">ATTADALE</option>
+<option value="s_AUGUSTA">AUGUSTA</option>
+<option value="s_AUSTRALIND">AUSTRALIND</option>
+<option value="s_BALCATTA">BALCATTA</option>
+<option value="s_BALDIVIS">BALDIVIS</option>
+<option value="s_BALGA">BALGA</option>
+<option value="s_BALINGUP">BALINGUP</option>
+<option value="s_BALLAJURA">BALLAJURA</option>
+<option value="s_BARRAGUP">BARRAGUP</option>
+<option value="s_BASKERVILLE">BASKERVILLE</option>
+<option value="s_BASSENDEAN">BASSENDEAN</option>
+<option value="s_BAYSWATER">BAYSWATER</option>
+<option value="s_BECKENHAM">BECKENHAM</option>
+<option value="s_BEDFORDALE">BEDFORDALE</option>
+<option value="s_BEECHBORO">BEECHBORO</option>
+<option value="s_BELDON">BELDON</option>
+<option value="s_BELLEVUE">BELLEVUE</option>
+<option value="s_BELMONT">BELMONT</option>
+<option value="s_BENGER">BENGER</option>
+<option value="s_BENTLEY">BENTLEY</option>
+<option value="s_BERTRAM">BERTRAM</option>
+<option value="s_BIBRA LAKE">BIBRA LAKE</option>
+<option value="s_BICTON">BICTON</option>
+<option value="s_BINNINGUP">BINNINGUP</option>
+<option value="s_BOULDER">BOULDER</option>
+<option value="s_BRENTWOOD">BRENTWOOD</option>
+<option value="s_BRIDGETOWN">BRIDGETOWN</option>
+<option value="s_BROOME">BROOME</option>
+<option value="s_BRUNSWICK JUNCTION">BRUNSWICK JUNCTION</option>
+<option value="s_BULL CREEK">BULL CREEK</option>
+<option value="s_BULLSBROOK">BULLSBROOK</option>
+<option value="s_BUNBURY">BUNBURY</option>
+<option value="s_BURSWOOD">BURSWOOD</option>
+<option value="s_BUSSELTON">BUSSELTON</option>
+<option value="s_BYFORD">BYFORD</option>
+<option value="s_CANNING VALE">CANNING VALE</option>
+<option value="s_CANNINGTON">CANNINGTON</option>
+<option value="s_CAPEL">CAPEL</option>
+<option value="s_CARBUNUP RIVER">CARBUNUP RIVER</option>
+<option value="s_CARINE">CARINE</option>
+<option value="s_CARLISLE">CARLISLE</option>
+<option value="s_CARNARVON">CARNARVON</option>
+<option value="s_CATABY">CATABY</option>
+<option value="s_CAVERSHAM">CAVERSHAM</option>
+<option value="s_CHIDLOW">CHIDLOW</option>
+<option value="s_CLAREMONT">CLAREMONT</option>
+<option value="s_CLARKSON">CLARKSON</option>
+<option value="s_CLOVERDALE">CLOVERDALE</option>
+<option value="s_COCKBURN CENTRAL">COCKBURN CENTRAL</option>
+<option value="s_COLLIE">COLLIE</option>
+<option value="s_COMO">COMO</option>
+<option value="s_COOLGARDIE">COOLGARDIE</option>
+<option value="s_COOLUP">COOLUP</option>
+<option value="s_COTTESLOE">COTTESLOE</option>
+<option value="s_COWARAMUP">COWARAMUP</option>
+<option value="s_CUNDERDIN">CUNDERDIN</option>
+<option value="s_CURRAMBINE">CURRAMBINE</option>
+<option value="s_DALWALLINU">DALWALLINU</option>
+<option value="s_DAMPIER">DAMPIER</option>
+<option value="s_DARDANUP">DARDANUP</option>
+<option value="s_DAWESVILLE">DAWESVILLE</option>
+<option value="s_DENMARK">DENMARK</option>
+<option value="s_DERBY">DERBY</option>
+<option value="s_DIANELLA">DIANELLA</option>
+<option value="s_DONGARA">DONGARA</option>
+<option value="s_DONNYBROOK">DONNYBROOK</option>
+<option value="s_DOUBLEVIEW">DOUBLEVIEW</option>
+<option value="s_DUNCRAIG">DUNCRAIG</option>
+<option value="s_DUNSBOROUGH">DUNSBOROUGH</option>
+<option value="s_DWELLINGUP">DWELLINGUP</option>
+<option value="s_EAST FREMANTLE">EAST FREMANTLE</option>
+<option value="s_EAST PERTH">EAST PERTH</option>
+<option value="s_EAST VICTORIA PARK">EAST VICTORIA PARK</option>
+<option value="s_EATON">EATON</option>
+<option value="s_EDGEWATER">EDGEWATER</option>
+<option value="s_ELLENBROOK">ELLENBROOK</option>
+<option value="s_ERSKINE">ERSKINE</option>
+<option value="s_ESPERANCE">ESPERANCE</option>
+<option value="s_EXMOUTH">EXMOUTH</option>
+<option value="s_FALCON">FALCON</option>
+<option value="s_FITZROY CROSSING">FITZROY CROSSING</option>
+<option value="s_FLOREAT">FLOREAT</option>
+<option value="s_FORRESTDALE">FORRESTDALE</option>
+<option value="s_FORRESTFIELD">FORRESTFIELD</option>
+<option value="s_FREMANTLE">FREMANTLE</option>
+<option value="s_GELORUP">GELORUP</option>
+<option value="s_GERALDTON">GERALDTON</option>
+<option value="s_GIDGEGANNUP">GIDGEGANNUP</option>
+<option value="s_GIRRAWHEEN">GIRRAWHEEN</option>
+<option value="s_GLEN FORREST">GLEN FORREST</option>
+<option value="s_GLENDALOUGH">GLENDALOUGH</option>
+<option value="s_GLENFIELD">GLENFIELD</option>
+<option value="s_GNANGARA">GNANGARA</option>
+<option value="s_GOLDEN BAY">GOLDEN BAY</option>
+<option value="s_GOSNELLS">GOSNELLS</option>
+<option value="s_GRACETOWN">GRACETOWN</option>
+<option value="s_GREENBUSHES">GREENBUSHES</option>
+<option value="s_GREENOUGH">GREENOUGH</option>
+<option value="s_GREENWOOD">GREENWOOD</option>
+<option value="s_GUILDFORD">GUILDFORD</option>
+<option value="s_GWELUP">GWELUP</option>
+<option value="s_HALLS HEAD">HALLS HEAD</option>
+<option value="s_HAMILTON HILL">HAMILTON HILL</option>
+<option value="s_HARVEY">HARVEY</option>
+<option value="s_HENLEY BROOK">HENLEY BROOK</option>
+<option value="s_HERNE HILL">HERNE HILL</option>
+<option value="s_HIGH WYCOMBE">HIGH WYCOMBE</option>
+<option value="s_HIGHGATE">HIGHGATE</option>
+<option value="s_HILLARYS">HILLARYS</option>
+<option value="s_HUNTINGDALE">HUNTINGDALE</option>
+<option value="s_INNALOO">INNALOO</option>
+<option value="s_JANDAKOT">JANDAKOT</option>
+<option value="s_JOLIMONT">JOLIMONT</option>
+<option value="s_JOONDALUP">JOONDALUP</option>
+<option value="s_JURIEN BAY">JURIEN BAY</option>
+<option value="s_KALAMUNDA">KALAMUNDA</option>
+<option value="s_KALGOORLIE">KALGOORLIE</option>
+<option value="s_KAMBALDA">KAMBALDA</option>
+<option value="s_KAMBALDA WEST">KAMBALDA WEST</option>
+<option value="s_KARAWARA">KARAWARA</option>
+<option value="s_KARDINYA">KARDINYA</option>
+<option value="s_KARRAGULLEN">KARRAGULLEN</option>
+<option value="s_KARRATHA">KARRATHA</option>
+<option value="s_KARRIDALE">KARRIDALE</option>
+<option value="s_KARRINYUP">KARRINYUP</option>
+<option value="s_KELLERBERRIN">KELLERBERRIN</option>
+<option value="s_KELMSCOTT">KELMSCOTT</option>
+<option value="s_KEWDALE">KEWDALE</option>
+<option value="s_KIARA">KIARA</option>
+<option value="s_KINGSLEY">KINGSLEY</option>
+<option value="s_KIRUP">KIRUP</option>
+<option value="s_KOJONUP">KOJONUP</option>
+<option value="s_KOONDOOLA">KOONDOOLA</option>
+<option value="s_KUNUNURRA">KUNUNURRA</option>
+<option value="s_KWINANA">KWINANA</option>
+<option value="s_LAKELANDS">LAKELANDS</option>
+<option value="s_LANGFORD">LANGFORD</option>
+<option value="s_LEDA">LEDA</option>
+<option value="s_LEEDERVILLE">LEEDERVILLE</option>
+<option value="s_LEEMING">LEEMING</option>
+<option value="s_LESMURDIE">LESMURDIE</option>
+<option value="s_LYNWOOD">LYNWOOD</option>
+<option value="s_MADDINGTON">MADDINGTON</option>
+<option value="s_MADELEY">MADELEY</option>
+<option value="s_MAIDA VALE">MAIDA VALE</option>
+<option value="s_MALAGA">MALAGA</option>
+<option value="s_MANDURAH">MANDURAH</option>
+<option value="s_MANJIMUP">MANJIMUP</option>
+<option value="s_MANNING">MANNING</option>
+<option value="s_MANYPEAKS">MANYPEAKS</option>
+<option value="s_MARGARET RIVER">MARGARET RIVER</option>
+<option value="s_MEADOW SPRINGS">MEADOW SPRINGS</option>
+<option value="s_MEEKATHARRA">MEEKATHARRA</option>
+<option value="s_MERRIWA">MERRIWA</option>
+<option value="s_MIDDLE SWAN">MIDDLE SWAN</option>
+<option value="s_MIDVALE">MIDVALE</option>
+<option value="s_MINDARIE">MINDARIE</option>
+<option value="s_MIRRABOOKA">MIRRABOOKA</option>
+<option value="s_MOONYOONOOKA">MOONYOONOOKA</option>
+<option value="s_MOORA">MOORA</option>
+<option value="s_MORLEY">MORLEY</option>
+<option value="s_MOSMAN PARK">MOSMAN PARK</option>
+<option value="s_MOUNT BARKER">MOUNT BARKER</option>
+<option value="s_MT LAWLEY">MT LAWLEY</option>
+<option value="s_MT PLEASANT">MT PLEASANT</option>
+<option value="s_MULLALOO">MULLALOO</option>
+<option value="s_MULLALYUP">MULLALYUP</option>
+<option value="s_MUNDARING">MUNDARING</option>
+<option value="s_MUNDIJONG">MUNDIJONG</option>
+<option value="s_MUNSTER">MUNSTER</option>
+<option value="s_MURDOCH">MURDOCH</option>
+<option value="s_MYALUP">MYALUP</option>
+<option value="s_MYAREE">MYAREE</option>
+<option value="s_NARROGIN">NARROGIN</option>
+<option value="s_NAVAL BASE">NAVAL BASE</option>
+<option value="s_NEDLANDS">NEDLANDS</option>
+<option value="s_NEERABUP">NEERABUP</option>
+<option value="s_NEWMAN">NEWMAN</option>
+<option value="s_NORANDA">NORANDA</option>
+<option value="s_NORSEMAN">NORSEMAN</option>
+<option value="s_NORTH DANDALUP">NORTH DANDALUP</option>
+<option value="s_NORTH FREMANTLE">NORTH FREMANTLE</option>
+<option value="s_NORTH PERTH">NORTH PERTH</option>
+<option value="s_NORTH YUNDERUP">NORTH YUNDERUP</option>
+<option value="s_NORTHAM">NORTHAM</option>
+<option value="s_NORTHBRIDGE">NORTHBRIDGE</option>
+<option value="s_NORTHCLIFFE">NORTHCLIFFE</option>
+<option value="s_NOWERGUP">NOWERGUP</option>
+<option value="s_O&#39;CONNOR">O'CONNOR</option>
+<option value="s_OCEAN REEF">OCEAN REEF</option>
+<option value="s_OSBORNE PARK">OSBORNE PARK</option>
+<option value="s_PADBURY">PADBURY</option>
+<option value="s_PALMYRA">PALMYRA</option>
+<option value="s_PARMELIA">PARMELIA</option>
+<option value="s_PEARSALL">PEARSALL</option>
+<option value="s_PEMBERTON">PEMBERTON</option>
+<option value="s_PERTH">PERTH</option>
+<option value="s_PICTON">PICTON</option>
+<option value="s_PINJARRA">PINJARRA</option>
+<option value="s_PORT HEDLAND">PORT HEDLAND</option>
+<option value="s_PORT KENNEDY">PORT KENNEDY</option>
+<option value="s_PRESTON BEACH">PRESTON BEACH</option>
+<option value="s_QUINNS ROCKS">QUINNS ROCKS</option>
+<option value="s_RAVENSTHORPE">RAVENSTHORPE</option>
+<option value="s_REDCLIFFE">REDCLIFFE</option>
+<option value="s_REDMOND">REDMOND</option>
+<option value="s_RIDGEWOOD">RIDGEWOOD</option>
+<option value="s_RIVERTON">RIVERTON</option>
+<option value="s_RIVERVALE">RIVERVALE</option>
+<option value="s_ROCKINGHAM">ROCKINGHAM</option>
+<option value="s_ROLEYSTONE">ROLEYSTONE</option>
+<option value="s_ROSA BROOK">ROSA BROOK</option>
+<option value="s_ROTTNEST ISLAND">ROTTNEST ISLAND</option>
+<option value="s_SAWYERS VALLEY">SAWYERS VALLEY</option>
+<option value="s_SCARBOROUGH">SCARBOROUGH</option>
+<option value="s_SECRET HARBOUR">SECRET HARBOUR</option>
+<option value="s_SERPENTINE">SERPENTINE</option>
+<option value="s_SEVILLE GROVE">SEVILLE GROVE</option>
+<option value="s_SINGLETON">SINGLETON</option>
+<option value="s_SORRENTO">SORRENTO</option>
+<option value="s_SOUTH FREMANTLE">SOUTH FREMANTLE</option>
+<option value="s_SOUTH HEDLAND">SOUTH HEDLAND</option>
+<option value="s_SOUTH LAKE">SOUTH LAKE</option>
+<option value="s_SOUTH PERTH">SOUTH PERTH</option>
+<option value="s_SOUTH YUNDERUP">SOUTH YUNDERUP</option>
+<option value="s_SOUTHERN RIVER">SOUTHERN RIVER</option>
+<option value="s_SPEARWOOD">SPEARWOOD</option>
+<option value="s_STRATHAM DOWNS">STRATHAM DOWNS</option>
+<option value="s_STRATTON">STRATTON</option>
+<option value="s_SUBIACO">SUBIACO</option>
+<option value="s_SUCCESS">SUCCESS</option>
+<option value="s_SWAN VIEW">SWAN VIEW</option>
+<option value="s_SWANBOURNE">SWANBOURNE</option>
+<option value="s_TAMMIN">TAMMIN</option>
+<option value="s_THE LAKES">THE LAKES</option>
+<option value="s_THORNLIE">THORNLIE</option>
+<option value="s_TUART HILL">TUART HILL</option>
+<option value="s_UPPER SWAN">UPPER SWAN</option>
+<option value="s_VASSE">VASSE</option>
+<option value="s_VICTORIA PARK">VICTORIA PARK</option>
+<option value="s_WAIKIKI">WAIKIKI</option>
+<option value="s_WALKAWAY">WALKAWAY</option>
+<option value="s_WALPOLE">WALPOLE</option>
+<option value="s_WANGARA">WANGARA</option>
+<option value="s_WANNEROO">WANNEROO</option>
+<option value="s_WARNBRO">WARNBRO</option>
+<option value="s_WAROONA">WAROONA</option>
+<option value="s_WARWICK">WARWICK</option>
+<option value="s_WATERLOO">WATERLOO</option>
+<option value="s_WATTLE GROVE">WATTLE GROVE</option>
+<option value="s_WEDGEFIELD">WEDGEFIELD</option>
+<option value="s_WELLSTEAD">WELLSTEAD</option>
+<option value="s_WELSHPOOL">WELSHPOOL</option>
+<option value="s_WEMBLEY">WEMBLEY</option>
+<option value="s_WEST PERTH">WEST PERTH</option>
+<option value="s_WEST SWAN">WEST SWAN</option>
+<option value="s_WESTMINSTER">WESTMINSTER</option>
+<option value="s_WILLETTON">WILLETTON</option>
+<option value="s_WILLIAMS">WILLIAMS</option>
+<option value="s_WITCHCLIFFE">WITCHCLIFFE</option>
+<option value="s_WOKALUP">WOKALUP</option>
+<option value="s_WOODVALE">WOODVALE</option>
+<option value="s_WOOROLOO">WOOROLOO</option>
+<option value="s_WUBIN">WUBIN</option>
+<option value="s_YANCHEP">YANCHEP</option>
+<option value="s_YOKINE">YOKINE</option>
+<option value="s_YORK">YORK</option>
+<option value="s_YOUNG SIDING">YOUNG SIDING</option></select></td></tr>
+                            <tr><td>Fuel</td><td><select id="search_fuel" name="search_fuel">
+                                    <option value="1">Unleaded Petrol
+                                    <option value="2">Premium Unleaded
+                                    <option value="4">Diesel
+                                    <option value="5">LPG
+                                    <option value="6">98 RON
+                                    <option value="7">B20 diesel
+                                </select></td></tr>
+                            <tr><td>Brand</td><td><select id="search_brand" name="search_brand">
+                                        
+<option value="ALL">Any
+<option value="2">Ampol
+<option value="3">Better Choice
+<option value="21">Black & White
+<option value="4">BOC
+<option value="5">BP
+<option value="6">Caltex
+<option value="19">Caltex Woolworths
+<option value="20">Coles Express
+<option value="24">Eagle
+<option value="7">Gull
+<option value="15">Independent
+<option value="8">Kleenheat
+<option value="9">Kwikfuel
+<option value="10">Liberty
+<option value="13">Peak
+<option value="14">Shell
+<option value="23">United
+<option value="16">Wesco                                        
+                                </select></td></tr>
+                        <tr><td colspan="2"><input type="button" value="Search" onclick='manualsearch();'></td></tr>
+
+                    </table>
+                </div>
+            </div> 
+            <footer data-role="footer">
+                <h3>Created by Craig Beasland</h3>
+                <a href="craigbeasland.html" data-icon="info" data-iconpos="notext" class="ui-btn-right">Credits</a>
+            </footer>
+        </div>
+
+        <script>
+            $('#directionstab').hide();
+            $('#searchtab').hide();
+            initiate_geolocation();
+        </script>
+    </body>
+</html>
