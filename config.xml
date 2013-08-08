@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="au.com.hotmix.FuelFinder" versionCode="1" version="1.0.0">
+	<name>Fuel Finder</name>
+	<description>Allows you to find the nearby petrol stations and the price of fuel using the WA Department of Consumer Protection fuelwatch website</description>
+	<author href="http://www.hotmix.com.au/craig/fuel" email="craig@hotmix.com.au">Craig Beasland</author>
+	<feature name="http://api.phonegap.com/1.0/geolocation" />
+	<feature name="http://api.phonegap.com/1.0/network" />
+	<preference name="orientation" value="portrait" />
+	<preference name="fullscreen" value="true" />
+	<preference name="exit-on-suspend" value="true" />
+	<icon src="img/icon.png" />
+	<gap:splash src="img/splash.png" />
+</widget>
